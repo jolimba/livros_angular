@@ -1,0 +1,10 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let client of books">
+    <mat-expansion-panel-header>
+      {{client.titulo}}
+    </mat-expansion-panel-header>
+    <p>id: {{client.id}}</p>
+    <p>número de páginas: {{client.pags}}</p>
+    <p>autor: {{client.autor}}</p>
+  </mat-expansion-panel>
+</mat-accordion>
