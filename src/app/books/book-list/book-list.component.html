@@ -6,5 +6,14 @@
     <p>id: {{client.id}}</p>
     <p>número de páginas: {{client.pags}}</p>
     <p>autor: {{client.autor}}</p>
+    <mat-action-row>
+      <button mat-button color="primary">Edit</button>
+      <button mat-button color="warn">Remove</button>
+    </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+<h3>
+  <p class="mat-body-1" style="text-align:center;" *ngIf="books.length <= 0">
+    No records
+  </p>
+</h3>
