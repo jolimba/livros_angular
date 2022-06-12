@@ -1,9 +1,17 @@
-const express = require('express');
+const express = require('express')
 const app = express();
-const bodyParser = require('body-parser');
+const Client = require('./models/client')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const books = []
 
+mongoose.connect('mongodb+srv://joao:1234@cluster0.4bjnk.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => {
+    console.log('conexão Ok')
+  }).catch(() => {
+    console.log('conexão Nok')
+  })
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
@@ -14,15 +22,25 @@ app.use((req, res, next) => {
 })
 
 app.post('/api/books', (req, res, next) => {
-  const book = req.body
-  console.log(book)
+  const client = new Client({
+    titulo: req.body.titulo,
+    id: req.body.id,
+    autor: req.body.autor,
+    pags: req.body.pags
+  })
+  client.save()
+  console.log(client)
   res.status(201).json({mensagem: "Inserted book"})
+  next()
 })
 
 app.use('/api/books', (req, res, next) => {
-  res.status(200).json({
-    mensagem: "tudo certin",
-    books: books
+  Client.find().then(documents => {
+    console.log(documents)
+    res.status(200).json({
+      mensagem: "tudo certin",
+      books: books
+    })
   })
 })
 
